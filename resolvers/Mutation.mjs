@@ -14,8 +14,7 @@ export const Mutation = {
         return newTodo;
       }
     },
-    
-    updateTodo: (parent, { id, updateTodoInput }, { db, pubsub }, infos) => {
+   updateTodo: (parent, { id, updateTodoInput }, { db, pubsub }, infos) => {
       if (
         updateTodoInput.userId &&
         !exist(db.users, "id", updateTodoInput.userId)
