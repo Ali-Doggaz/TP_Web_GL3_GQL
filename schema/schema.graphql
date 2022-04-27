@@ -1,3 +1,32 @@
+type Mutation {
+  addTodo(addTodoInput: TodoAddInput): Todo!
+  updateTodo(id: Int!, updateTodoInput: TodoUpdateInput!): Todo!
+  deleteTodo(id: Int!): Todo!
+}
+type Subscription {
+  todo: TodoSubscriptioPayload!
+}
+type Query {
+  hello(name: String): String!
+  getTodos: [Todo]!
+  getTodoById(id: Int): Todo!
+  getUsers: [User]!
+  getUserById(id: Int): User!
+}
+
+enum TodoStatusEnum {
+  WAITING
+  IN_PROGRESS
+  CANCLED
+  DONE
+}
+
+enum MutationOperationType {
+  UPDATE
+  DELETE
+  ADD
+}
+
 type Todo {
   id: ID!
   name: String!
@@ -13,17 +42,20 @@ type User {
   todos: [Todo]
 }
 
-type Query {
-  getTodos: [Todo]!
-  getTodoById(id: Int): Todo!
-  getUsers: [User]!
-  getUserById(id: Int): User!
+type TodoSubscriptioPayload {
+  todo: Todo!
+  mutation: MutationOperationType!
 }
 
-enum TodoStatusEnum {
-  WAITING
-  IN_PROGRESS
-  CANCELED
-  DONE
+input TodoAddInput {
+  name: String!
+  content: String!
+  userId: Int!
 }
 
+input TodoUpdateInput {
+  name: String
+  content: String
+  userId: Int
+  status: TodoStatusEnum
+}
